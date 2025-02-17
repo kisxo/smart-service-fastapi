@@ -1,5 +1,10 @@
 from fastapi import FastAPI
 from fastapi.middleware.cors import CORSMiddleware
+from app.routers import users
+from app.database.db import create_db_and_tables
+
+#init database on app start
+create_db_and_tables()
 
 app = FastAPI(
     root_path="/api",
@@ -19,3 +24,9 @@ app.add_middleware(
 @app.get("/", name= "Api Status")
 async def root():
     return {"status":"true", "message": "Smart Services Api server is running"}
+
+app.include_router(
+    users.router,
+    prefix="/users",
+    tags=["users"],
+)
