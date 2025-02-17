@@ -1,6 +1,6 @@
 from fastapi import FastAPI
 from fastapi.middleware.cors import CORSMiddleware
-from app.routers import users
+from app.routers import users, services
 from app.database.db import create_db_and_tables
 
 #init database on app start
@@ -29,4 +29,10 @@ app.include_router(
     users.router,
     prefix="/users",
     tags=["users"],
+)
+
+app.include_router(
+    services.router,
+    prefix="/services",
+    tags=["services"],
 )
