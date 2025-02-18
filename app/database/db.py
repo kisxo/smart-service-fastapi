@@ -1,8 +1,5 @@
 from sqlmodel import Session, create_engine, SQLModel
-from typing import Annotated
-from fastapi import Depends
 from app.config.config import settings
-from app.database.models import userModel
 
 DATABASE_URL = f"postgresql://{settings.POSTGRES_USER}:{settings.POSTGRES_PASSWORD}@{settings.POSTGRES_SERVER}:{settings.POSTGRES_PORT}/{settings.POSTGRES_DB}"
 
