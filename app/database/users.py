@@ -2,6 +2,7 @@ from fastapi import HTTPException
 from app.database.db import get_session, engine
 from sqlmodel import Session, select
 from app.database.models.userModel import User, UserCreate
+from app.security.security import get_password_hash
 
 async def list_users(
     session: Session = next(get_session())
@@ -22,7 +23,7 @@ async def create_user(
     user = User(
         phone = input_user.phone,
         name = input_user.name,
-        password = input_user.password
+        password = get_password_hash(input_user.password)
     )
 
     with Session(engine) as session:
