@@ -3,6 +3,7 @@ from app.database.db import get_session, engine
 from sqlmodel import Session, select
 from app.database.models.userModel import User, UserCreate
 from app.security.security import get_password_hash
+from app.security.phone import phone_lookup
 
 async def list_users(
     session: Session = next(get_session())
@@ -21,7 +22,7 @@ async def create_user(
     input_user: UserCreate,
 ):
     user = User(
-        phone = input_user.phone,
+        phone = phone_lookup(input_user.phone),
         name = input_user.name,
         password = get_password_hash(input_user.password)
     )

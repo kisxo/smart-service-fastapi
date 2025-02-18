@@ -3,7 +3,12 @@ from phonenumbers.phonenumber import PhoneNumber
 from phonenumbers.carrier import name_for_number
 
 
-def phone_lookup(phone: int) -> int:
+def phone_lookup(phone: str) -> int:
+    try:
+        phone = int(phone)
+    except:
+        raise HTTPException(status_code=400, detail="Invalid phone number !")
+
     if phone < 1000000000 or phone > 9999999999:
         raise HTTPException(status_code=400, detail="Invalid phone number !")
 
